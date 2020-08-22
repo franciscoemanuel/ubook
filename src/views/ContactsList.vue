@@ -65,7 +65,7 @@ export default {
         .toString(36)
         .substr(2, 9);
 
-      this.contacts.push({ ...contactData, id });
+      this.contacts.push({ ...contactData, id, createdAt: new Date().valueOf() });
     },
     updateContact(contactToUpdate) {
       const contactToUpdateIndex = this.contacts.findIndex(contact => contact.id === contactToUpdate.id);

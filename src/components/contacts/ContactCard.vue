@@ -1,5 +1,5 @@
 <template>
-  <card>
+  <card :class="{ highlight, 'contact-card': true }">
     <template name="avatar">
       <contact-avatar>{{ avatarText }}</contact-avatar>
     </template>
@@ -9,10 +9,14 @@
       <span>{{ email }}</span>
       <span>{{ phone }}</span>
       <div class="actions-buttons-container">
-        <btn flat @click="$emit('edit')"> <i class="material-icons-outlined action-btn">edit</i></btn>
+        <btn flat @click="$emit('edit')">
+          <i class="material-icons-outlined action-btn">edit</i>
+        </btn>
         <btn flat @click="$emit('delete')">
-          <i class="material-icons-outlined action-btn"><i class="material-icons action-btn">delete</i></i></btn
-        >
+          <i class="material-icons-outlined action-btn">
+            <i class="material-icons action-btn">delete</i>
+          </i>
+        </btn>
       </div>
     </div>
   </card>
@@ -39,18 +43,50 @@ export default {
     },
     phone: {
       type: String
+    },
+    createdAt: {
+      type: Number
+    },
+    highlightDelay: {
+      type: Number,
+      default: 2000 // ms
     }
+  },
+  data() {
+    return {
+      highlight: false
+    };
   },
   computed: {
     avatarText() {
       const [firstNameLetter] = this.name.match(/[a-zA-Z]/g) || [];
       return firstNameLetter || '?';
     }
+  },
+  methods: {
+    checkForHighlight() {
+      const createdAtDiff = new Date().valueOf() - this.createdAt;
+      const isRecentlyCreated = createdAtDiff <= this.highlightDelay;
+      if (isRecentlyCreated) {
+        this.highlight = true;
+        const milisecondsToHighlight = this.highlightDelay - createdAtDiff;
+        setTimeout(() => {
+          this.highlight = false;
+        }, milisecondsToHighlight);
+      }
+    }
+  },
+  created() {
+    this.checkForHighlight();
   }
 };
 </script>
 
 <style scoped>
+.contact-card {
+  transition: background-color 0.6s ease-out;
+}
+
 .contact-info-grid {
   display: grid;
   grid-template-columns: 2fr 2fr 2fr 1fr;
@@ -66,5 +102,9 @@ export default {
   display: flex;
   justify-content: flex-end;
   gap: 24px;
+}
+
+.highlight {
+  background-color: #fff3f2;
 }
 </style>

@@ -4,7 +4,7 @@
       label="Nome"
       class="contact-input"
       :value="name"
-      @input="$emit('update:name', $event)"
+      @input="$emit('update:name', $event.trim())"
       :validations="validations.name"
       @keyup.native.enter="$emit('saveShortcut')"
     ></text-input>
@@ -12,7 +12,7 @@
       label="E-mail"
       class="contact-input"
       :value="email"
-      @input="$emit('update:email', $event)"
+      @input="$emit('update:email', $event.trim())"
       :validations="validations.email"
       @keyup.native.enter="$emit('saveShortcut')"
     ></text-input>
@@ -21,7 +21,7 @@
       class="contact-input phone-input"
       v-mask="['(##) ####-####', '(##) #####-####']"
       :value="phone"
-      @input="$emit('update:phone', $event)"
+      @input="$emit('update:phone', $event.trim())"
       :validations="validations.phone"
       @keyup.native.enter="$emit('saveShortcut')"
     ></text-input>
