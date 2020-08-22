@@ -1,12 +1,20 @@
 <template>
   <div>
-    <text-input label="Nome" class="contact-input" :value="name" @input="$emit('update:name', $event)" :validations="validations.name"></text-input>
+    <text-input
+      label="Nome"
+      class="contact-input"
+      :value="name"
+      @input="$emit('update:name', $event)"
+      :validations="validations.name"
+      @keyup.native.enter="$emit('saveShortcut')"
+    ></text-input>
     <text-input
       label="E-mail"
       class="contact-input"
       :value="email"
       @input="$emit('update:email', $event)"
       :validations="validations.email"
+      @keyup.native.enter="$emit('saveShortcut')"
     ></text-input>
     <text-input
       label="Telefone"
@@ -15,6 +23,7 @@
       :value="phone"
       @input="$emit('update:phone', $event)"
       :validations="validations.phone"
+      @keyup.native.enter="$emit('saveShortcut')"
     ></text-input>
   </div>
 </template>
@@ -28,6 +37,9 @@ export default {
     TextInput
   },
   props: {
+    id: {
+      Type: String
+    },
     phone: {
       type: String
     },

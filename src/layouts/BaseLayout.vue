@@ -1,6 +1,10 @@
 <template>
   <div class="base-layout">
-    <navbar />
+    <navbar>
+      <template slot="actions">
+        <slot name="actions"></slot>
+      </template>
+    </navbar>
     <div class="content-container">
       <slot name="default"></slot>
     </div>
@@ -16,8 +20,6 @@ export default {
 };
 </script>
 <style>
-/* .base-layout  */
-
 .content-container {
   height: 100%;
 }

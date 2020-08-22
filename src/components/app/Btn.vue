@@ -1,5 +1,5 @@
 <template>
-  <div class="button-container" :class="{ rounded, flat }" :style="{ 'background-color': color, color: textColor }" @click="$emit('click')">
+  <div class="button-container" :class="{ rounded, flat, disabled }" :style="{ 'background-color': color, color: textColor }" @click="$emit('click')">
     <div class="button-slot">
       <i class="material-icons prepend-icon" v-show="prependIcon">{{ prependIcon }}</i>
       <slot name="default"></slot>
@@ -49,6 +49,10 @@ export default {
   cursor: pointer;
 }
 
+.button-container:hover {
+  opacity: 0.8;
+}
+
 .button-slot {
   display: flex;
   align-items: center;
@@ -73,5 +77,11 @@ export default {
 .flat .button-slot {
   margin: 0;
   width: min-content;
+}
+
+.disabled {
+  box-shadow: none;
+  pointer-events: none;
+  opacity: 0.32;
 }
 </style>

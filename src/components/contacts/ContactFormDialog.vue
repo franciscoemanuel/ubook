@@ -4,15 +4,15 @@
       <div class="form-header">
         <span>Criar novo contato</span>
       </div>
-      <hr class="divider" />
+      <divider />
     </template>
     <div class="form-content">
-      <contact-form v-bind.sync="newContact" :validations="$v.newContact"></contact-form>
+      <contact-form v-bind.sync="contactData" :validations="$v.contactData" @saveShortcut="save"></contact-form>
     </div>
     <template slot="footer">
-      <hr class="divider" />
+      <divider />
       <div class="actions-container">
-        <btn flat @click="$emit('input', false)">Cancelar</btn>
+        <btn flat @click="close()">Cancelar</btn>
         <btn color="#fa7268" textColor="white" class="save-btn" @click="save" :disabled="$v.$invalid">Salvar</btn>
       </div>
     </template>
@@ -20,52 +20,66 @@
 </template>
 
 <script>
+import { email } from 'vuelidate/lib/validators';
 import Modal from '@/components/app/Modal.vue';
 import Btn from '@/components/app/Btn.vue';
 import ContactForm from '@/components/contacts/ContactForm.vue';
-import { required, email } from 'vuelidate/lib/validators';
-import { phone } from '@/validation/validators';
+import Divider from '@/components/app/Divider.vue';
+import { phone, notEmptyObject } from '@/validation/validators';
+const CONTACT_BASE_STATE = { name: '', phone: '', email: '' };
 
 export default {
-  name: 'NewContactDialog',
+  name: 'ContactFormDialog',
   components: {
     Modal,
     Btn,
-    ContactForm
+    ContactForm,
+    Divider
   },
   props: {
     value: {
       type: Boolean,
       default: false
+    },
+    contact: {
+      type: Object
     }
   },
   data() {
     return {
-      newContact: {
-        name: '',
-        phone: '',
-        email: ''
-      }
+      contactData: { ...CONTACT_BASE_STATE }
     };
   },
   methods: {
     save() {
-      console.log(this.newContact);
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        this.$emit('save', { ...this.contactData });
+        this.close();
+      }
+    },
+    close() {
+      this.contactData = { ...CONTACT_BASE_STATE };
+      this.$emit('input', false);
     }
   },
   validations: {
-    newContact: {
-      name: {
-        required
-      },
+    contactData: {
+      notEmptyObject,
       email: {
-        required,
         email
       },
       phone: {
-        required,
         phone
       }
+    }
+  },
+  watch: {
+    contact: {
+      handler(val) {
+        this.contactData = Object.assign(this.contactData, { ...val });
+      },
+      deep: true
     }
   }
 };
@@ -84,10 +98,6 @@ export default {
 
 .new-contact-modal .modal-dialog {
   width: 432px;
-}
-
-.divider {
-  border: solid 1px #c0c3d2;
 }
 
 .actions-container {

@@ -43,11 +43,12 @@ export default {
   margin: 15% auto;
   border: 1px solid #888;
   width: max-content;
-
   display: flex;
   flex-direction: column;
   border-radius: 16px;
   box-shadow: 0 16px 10px 0 rgba(0, 0, 0, 0.16);
+  animation-name: scaley;
+  animation-duration: 0.4s;
 }
 
 .close {
@@ -64,7 +65,7 @@ export default {
   cursor: pointer;
 }
 
-@keyframes animatetop {
+@keyframes scaley {
   0% {
     transform: scale(0.5);
   }

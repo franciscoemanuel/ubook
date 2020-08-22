@@ -2,14 +2,13 @@
   <div class="navbar-grid">
     <img alt="Vue logo" src="@/assets/images/ic-logo.svg" />
     <div>
-      <btn prepend-icon="add" v-show="!hideActions">Criar contato</btn>
+      <slot name="actions"></slot>
     </div>
     <text-input placeholder="Buscar..." append-icon="search" background-color="#e4e7f4" :outlined="false"></text-input>
   </div>
 </template>
 
 <script>
-import Btn from '@/components/app/Btn.vue';
 import TextInput from '@/components/app/TextInput.vue';
 
 export default {
@@ -21,7 +20,6 @@ export default {
     }
   },
   components: {
-    Btn,
     TextInput
   }
 };

@@ -5,7 +5,14 @@
     </div>
     <div class="input-container" :style="{ 'background-color': backgroundColor }" :class="{ border: outlined }">
       <div class="input-slot">
-        <input type="text" class="text-input" :placeholder="placeholder" v-model="internalValue" @blur="validations && validations.$touch()" />
+        <input
+          type="text"
+          class="text-input"
+          :placeholder="placeholder"
+          v-model="internalValue"
+          @blur="validations && validations.$touch()"
+          @input="validations && validations.$touch()"
+        />
         <i class="material-icons append-icon" v-show="appendIcon">{{ appendIcon }}</i>
       </div>
     </div>
@@ -67,6 +74,11 @@ export default {
       const validation = validations.find(val => !this.validations[val]);
       const errorMessage = messages[validation];
       return errorMessage;
+    }
+  },
+  watch: {
+    value(val) {
+      this.lazyValue = val;
     }
   }
 };
