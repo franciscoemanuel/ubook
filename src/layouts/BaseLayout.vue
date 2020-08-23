@@ -1,8 +1,8 @@
 <template>
   <div class="base-layout">
     <navbar>
-      <template slot="actions">
-        <slot name="actions"></slot>
+      <template slot="navbarActions">
+        <slot name="navbarActions"></slot>
       </template>
     </navbar>
     <div class="content-container">

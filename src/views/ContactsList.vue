@@ -1,21 +1,21 @@
 <template>
   <base-layout>
-    <template slot="actions">
+    <template slot="navbarActions">
       <btn prepend-icon="add" v-show="contacts.length" @click="openContactFormDialog = true">Criar contato</btn>
     </template>
-    <empty-content class="empty-content" v-if="!contacts.length">
+    <empty-content class="empty-content" v-if="!filteredAndSortedContacts.length">
       <template slot="image">
         <img src="@/assets/images/ic-book.svg" />
       </template>
-      <span>Nenhum contato foi criado ainda.</span>
+      <span>{{ emptyContactsText }}</span>
       <template slot="actions">
-        <btn prepend-icon="add" @click.native="openContactFormDialog = true">Criar contato</btn>
+        <btn v-show="!contacts.length" prepend-icon="add" @click.native="openContactFormDialog = true">Criar contato</btn>
       </template>
     </empty-content>
     <contacts-grid
       @deleteContact="handleContactDelete"
       @editContact="handleContactUpdate"
-      :contacts="orderedContacts"
+      :contacts="filteredAndSortedContacts"
       v-else
       class="contacts-grid"
     ></contacts-grid>
@@ -32,7 +32,7 @@ import Btn from '@/components/app/Btn.vue';
 import ContactFormDialog from '@/components/contacts/ContactFormDialog.vue';
 import ContactsGrid from '@/components/contacts/ContactsGrid.vue';
 import DeleteContactDialog from '@/components/contacts/DeleteContactDialog.vue';
-import { clone } from '@/utils';
+import { clone, numbersOnly } from '@/utils';
 
 export default {
   name: 'ContactsList',
@@ -94,12 +94,33 @@ export default {
     handleContactUpdate(contactToUpdate) {
       this.contactToUpdate = clone(contactToUpdate);
       this.openContactFormDialog = true;
+    },
+    sortContacts(contacts) {
+      return contacts.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
+    },
+    filterContacts(contacts, search) {
+      const matchRegex = ({ pattern, string }) => pattern && new RegExp(pattern, 'gi').test(string);
+      const filters = contact => {
+        return [
+          contact.name && { pattern: search, string: contact.name },
+          contact.email && { pattern: search, string: contact.email },
+          contact.phone && { pattern: numbersOnly(search), string: numbersOnly(contact.phone) }
+        ].filter(match => match);
+      };
+      return contacts.filter(contact => filters(contact).some(matchRegex));
     }
   },
   computed: {
-    orderedContacts() {
+    contactsSearch() {
+      return this.$store.getters['contacts/search'];
+    },
+    filteredAndSortedContacts() {
       const contacts = clone(this.contacts);
-      return contacts.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
+      const sortedContacts = this.sortContacts(contacts);
+      return this.contactsSearch ? this.filterContacts(sortedContacts, this.contactsSearch) : sortedContacts;
+    },
+    emptyContactsText() {
+      return this.contacts && this.contacts.length ? 'Nenhum contato encontrado.' : 'Nenhum contato adicionado.';
     }
   }
 };

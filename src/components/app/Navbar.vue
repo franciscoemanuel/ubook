@@ -2,9 +2,9 @@
   <div class="navbar-grid">
     <img alt="Vue logo" src="@/assets/images/ic-logo.svg" />
     <div>
-      <slot name="actions"></slot>
+      <slot name="navbarActions"></slot>
     </div>
-    <text-input placeholder="Buscar..." append-icon="search" background-color="#e4e7f4" :outlined="false"></text-input>
+    <text-input placeholder="Buscar..." append-icon="search" background-color="#e4e7f4" :outlined="false" v-model="search"></text-input>
   </div>
 </template>
 
@@ -21,6 +21,16 @@ export default {
   },
   components: {
     TextInput
+  },
+  computed: {
+    search: {
+      get() {
+        return this.$store.getters['contacts/search'];
+      },
+      set(value) {
+        this.$store.dispatch('contacts/setSearch', value.trim());
+      }
+    }
   }
 };
 </script>
