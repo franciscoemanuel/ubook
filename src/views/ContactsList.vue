@@ -15,7 +15,7 @@
     <contacts-grid
       @deleteContact="handleContactDelete"
       @editContact="handleContactUpdate"
-      :contacts="contacts"
+      :contacts="orderedContacts"
       v-else
       class="contacts-grid"
     ></contacts-grid>
@@ -25,12 +25,14 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import BaseLayout from '@/layouts/BaseLayout.vue';
 import EmptyContent from '@/components/app/EmptyContent.vue';
 import Btn from '@/components/app/Btn.vue';
 import ContactFormDialog from '@/components/contacts/ContactFormDialog.vue';
 import ContactsGrid from '@/components/contacts/ContactsGrid.vue';
 import DeleteContactDialog from '@/components/contacts/DeleteContactDialog.vue';
+import { clone } from '@/utils';
 
 export default {
   name: 'ContactsList',
@@ -49,15 +51,19 @@ export default {
       openContactFormDialog: false,
       contacts: [],
       contactToUpdate: {},
-      contactToDelete: ''
+      contactToDelete: '',
+      showSnack: false
     };
   },
   methods: {
+    ...mapActions('app', ['showSnackbar']),
     save(contactData) {
       if (contactData.id) {
         this.updateContact(contactData);
+        this.showSnackbar({ message: 'Contato atualizado com sucesso', icon: 'done', closable: true });
       } else {
         this.addNewContact(contactData);
+        this.showSnackbar({ message: 'Contato adcionado com sucesso', icon: 'done', closable: true });
       }
     },
     addNewContact(contactData) {
@@ -69,24 +75,31 @@ export default {
     },
     updateContact(contactToUpdate) {
       const contactToUpdateIndex = this.contacts.findIndex(contact => contact.id === contactToUpdate.id);
-      const newContactsData = [...this.contacts];
+      const newContactsData = clone(this.contacts);
       newContactsData[contactToUpdateIndex] = contactToUpdate;
       this.contacts = newContactsData;
       this.contactToUpdate = {};
     },
     deleteContact() {
       const contactToDeleteIndex = this.contacts.findIndex(contact => contact.id === this.contactToDelete);
-      const newContactsData = [...this.contacts];
+      const newContactsData = clone(this.contacts);
       newContactsData.splice(contactToDeleteIndex, 1);
       this.contacts = newContactsData;
+      this.showSnackbar({ message: 'Contato excluído com sucesso', icon: 'done', closable: true });
     },
     handleContactDelete(contactId) {
       this.openDeleteContactDialog = true;
       this.contactToDelete = contactId;
     },
     handleContactUpdate(contactToUpdate) {
-      this.contactToUpdate = { ...contactToUpdate };
+      this.contactToUpdate = clone(contactToUpdate);
       this.openContactFormDialog = true;
+    }
+  },
+  computed: {
+    orderedContacts() {
+      const contacts = clone(this.contacts);
+      return contacts.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
     }
   }
 };

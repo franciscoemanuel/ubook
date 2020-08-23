@@ -49,35 +49,40 @@ export default {
     },
     highlightDelay: {
       type: Number,
-      default: 2000 // ms
+      default: 10000 // ms
     }
   },
   data() {
     return {
-      highlight: false
+      highlight: false,
+      activeHightlightTimeout: {}
     };
   },
   computed: {
     avatarText() {
       const [firstNameLetter] = this.name.match(/[a-zA-Z]/g) || [];
-      return firstNameLetter || '?';
+      return firstNameLetter ? firstNameLetter.toUpperCase() : '?';
     }
   },
   methods: {
     checkForHighlight() {
+      window.clearTimeout(this.activeHightlightTimeout);
       const createdAtDiff = new Date().valueOf() - this.createdAt;
       const isRecentlyCreated = createdAtDiff <= this.highlightDelay;
       if (isRecentlyCreated) {
         this.highlight = true;
         const milisecondsToHighlight = this.highlightDelay - createdAtDiff;
-        setTimeout(() => {
+        this.activeHightlightTimeout = setTimeout(() => {
           this.highlight = false;
         }, milisecondsToHighlight);
       }
     }
   },
-  created() {
-    this.checkForHighlight();
+  watch: {
+    createdAt: {
+      handler: 'checkForHighlight',
+      immediate: true
+    }
   }
 };
 </script>

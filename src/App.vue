@@ -1,16 +1,20 @@
 <template>
   <div id="app">
     <contacts-list />
+
+    <snackbar />
   </div>
 </template>
 
 <script>
 import ContactsList from '@/views/ContactsList.vue';
+import Snackbar from '@/components/app/Snackbar.vue';
 
 export default {
   name: 'App',
   components: {
-    ContactsList
+    ContactsList,
+    Snackbar
   }
 };
 </script>
