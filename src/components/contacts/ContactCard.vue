@@ -1,7 +1,7 @@
 <template>
   <card :class="{ highlight, 'contact-card': true }">
     <template name="avatar">
-      <contact-avatar>{{ avatarText }}</contact-avatar>
+      <contact-avatar class="contact-avatar">{{ avatarText }}</contact-avatar>
     </template>
 
     <div class="contact-info-grid">
@@ -87,16 +87,17 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .contact-card {
   transition: background-color 0.6s ease-out;
 }
 
 .contact-info-grid {
   display: grid;
-  grid-template-columns: 2fr 2fr 2fr 1fr;
   width: 100%;
   align-items: center;
+  justify-items: center;
+  gap: 10px;
 }
 
 .action-btn {
@@ -110,6 +111,18 @@ export default {
 }
 
 .highlight {
-  background-color: #fff3f2;
+  background-color: #fff3f2 !important;
+}
+
+@media (min-width: 700px) {
+  .contact-info-grid {
+    grid-template-columns: 2fr 2fr 2fr 1fr;
+    justify-items: flex-start;
+    gap: 0px;
+  }
+
+  .contact-avatar {
+    margin-right: 16px;
+  }
 }
 </style>

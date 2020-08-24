@@ -1,6 +1,6 @@
 <template>
   <div class="contacts-container">
-    <card class="no-border">
+    <card class="no-border contacts-grid-header-container">
       <template name="avatar"> </template>
       <div class="contacts-grid-header">
         <span>Contatos</span>
@@ -10,7 +10,7 @@
       </div>
     </card>
     <div class="contact-info-row" v-for="(contact, key) in contacts" :key="key">
-      <divider />
+      <divider class="grid-divider" />
       <contact-card
         class="no-border contact-info-card"
         @delete="$emit('deleteContact', contact.id)"
@@ -46,7 +46,7 @@ export default {
   display: flex;
   flex-direction: column;
   border-radius: 4px;
-  border: solid 1px #e1e1e1;
+  gap: 10px;
 }
 
 .contacts-grid-header {
@@ -61,12 +61,35 @@ export default {
   color: #9198af;
 }
 
-.no-border {
-  border: none;
-}
-
 .contact-info-card:hover {
   background-color: #fff3f2;
   cursor: pointer;
+}
+
+.contacts-grid-header-container {
+  display: none;
+}
+
+.grid-divider {
+  display: none;
+}
+
+@media (min-width: 700px) {
+  .contacts-grid-header-container {
+    display: flex;
+  }
+
+  .grid-divider {
+    display: block;
+  }
+
+  .no-border {
+    border: none;
+  }
+
+  .contacts-container {
+    border: solid 1px #e1e1e1;
+    gap: 0px;
+  }
 }
 </style>

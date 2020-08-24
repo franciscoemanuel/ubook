@@ -3,7 +3,7 @@
     <template slot="navbarActions">
       <btn prepend-icon="add" v-show="contacts.length" @click="openContactFormDialog = true">Criar contato</btn>
     </template>
-    <empty-content class="empty-content" v-if="!filteredAndSortedContacts.length">
+    <empty-content class="empty-content" v-show="!filteredAndSortedContacts.length">
       <template slot="image">
         <img src="@/assets/images/ic-book.svg" />
       </template>
@@ -16,7 +16,7 @@
       @deleteContact="handleContactDelete"
       @editContact="handleContactUpdate"
       :contacts="filteredAndSortedContacts"
-      v-else
+      v-show="filteredAndSortedContacts.length"
       class="contacts-grid"
     ></contacts-grid>
     <contact-form-dialog v-model="openContactFormDialog" :contact="contactToUpdate" @save="save"></contact-form-dialog>
@@ -61,6 +61,7 @@ export default {
       if (contactData.id) {
         this.updateContact(contactData);
         this.showSnackbar({ message: 'Contato atualizado com sucesso', icon: 'done', closable: true });
+        this.contactToUpdate = {};
       } else {
         this.addNewContact(contactData);
         this.showSnackbar({ message: 'Contato adcionado com sucesso', icon: 'done', closable: true });

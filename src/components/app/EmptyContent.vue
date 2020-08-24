@@ -24,5 +24,6 @@ export default {
 
 .empty-contacts-text {
   margin: 1.5em;
+  font-size: 16px;
 }
 </style>

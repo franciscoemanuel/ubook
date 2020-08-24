@@ -49,14 +49,8 @@ export default {
 </script>
 
 <style>
-.delete-contact-modal .modal-dialog {
-  width: 432px;
-}
-
 .warning-text {
-  margin-top: 20px;
-  margin-bottom: 57px;
-  margin-left: 24px;
+  margin: 24px;
   display: block;
   font-weight: 500;
   font-size: 14px;
@@ -70,5 +64,17 @@ export default {
 
 .delete-btn {
   margin-left: 16px;
+}
+
+@media (min-width: 600px) {
+  .delete-contact-modal .modal-dialog {
+    width: 432px;
+  }
+
+  .warning-text {
+    margin-top: 20px;
+    margin-bottom: 57px;
+    margin-left: 24px;
+  }
 }
 </style>

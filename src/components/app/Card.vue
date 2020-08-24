@@ -19,5 +19,14 @@ export default {
   display: flex;
   border-radius: 4px;
   align-items: center;
+  gap: 10px;
+  flex-direction: column;
+}
+
+@media (min-width: 700px) {
+  .card-container {
+    flex-direction: row;
+    gap: 0px;
+  }
 }
 </style>

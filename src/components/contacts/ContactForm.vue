@@ -62,7 +62,9 @@ export default {
   margin-bottom: 16px;
 }
 
-.phone-input {
-  width: 40%;
+@media (min-width: 700px) {
+  .phone-input {
+    width: 40%;
+  }
 }
 </style>

@@ -2,7 +2,7 @@
   <modal v-model="value" class="new-contact-modal">
     <template slot="header">
       <div class="form-header">
-        <span>Criar novo contato</span>
+        <span>{{ formHeaderText }}</span>
       </div>
       <divider />
     </template>
@@ -63,6 +63,11 @@ export default {
       this.$emit('input', false);
     }
   },
+  computed: {
+    formHeaderText() {
+      return this.contact && Object.keys(this.contact).length ? 'Editar contato' : 'Criar novo contato';
+    }
+  },
   validations: {
     contactData: {
       notEmptyObject,
@@ -96,10 +101,6 @@ export default {
   margin: 16px 24px;
 }
 
-.new-contact-modal .modal-dialog {
-  width: 432px;
-}
-
 .actions-container {
   display: flex;
   justify-content: flex-end;
@@ -108,5 +109,11 @@ export default {
 
 .save-btn {
   margin-left: 16px;
+}
+
+@media (min-width: 600px) {
+  .new-contact-modal .modal-dialog {
+    width: 432px;
+  }
 }
 </style>

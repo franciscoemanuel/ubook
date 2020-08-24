@@ -30,7 +30,6 @@ export default {
   width: 24px;
   height: 24px;
   display: inline-block;
-  margin-right: 16px;
 }
 
 .char-text {

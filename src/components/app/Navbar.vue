@@ -1,10 +1,17 @@
 <template>
   <div class="navbar-grid">
     <img alt="Vue logo" src="@/assets/images/ic-logo.svg" />
-    <div>
+    <div class="navbar-actions-container">
       <slot name="navbarActions"></slot>
     </div>
-    <text-input placeholder="Buscar..." append-icon="search" background-color="#e4e7f4" :outlined="false" v-model="search"></text-input>
+    <text-input
+      placeholder="Buscar..."
+      append-icon="search"
+      background-color="#e4e7f4"
+      :outlined="false"
+      v-model="search"
+      class="search-input"
+    ></text-input>
   </div>
 </template>
 
@@ -38,6 +45,18 @@ export default {
 <style>
 .navbar-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 7fr;
+  grid-gap: 10px;
+  justify-items: center;
+}
+
+.search-input {
+  width: 100%;
+}
+
+@media (min-width: 900px) {
+  .navbar-grid {
+    grid-template-columns: 208px 168px calc(100% - (208px + 168px + 21px));
+    justify-items: flex-start;
+  }
 }
 </style>

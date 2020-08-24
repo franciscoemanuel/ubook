@@ -24,8 +24,12 @@ export default {
   height: 100%;
 }
 
-body {
+.base-layout {
   margin: 1em;
+}
+
+body {
+  margin: 0;
   background-color: #f8f9fd;
 }
 </style>
