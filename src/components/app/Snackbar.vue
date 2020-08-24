@@ -19,6 +19,11 @@ export default {
   components: {
     Btn
   },
+  data() {
+    return {
+      activeTimeout: {}
+    };
+  },
   methods: {
     ...mapActions('app', ['closeSnackbar']),
     setTimeout() {
@@ -30,11 +35,6 @@ export default {
   },
   computed: {
     ...mapGetters('app', ['snackbar'])
-  },
-  data() {
-    return {
-      activeTimeout: {}
-    };
   },
   watch: {
     snackbar: {

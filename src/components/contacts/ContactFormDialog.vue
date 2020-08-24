@@ -25,7 +25,7 @@ import Modal from '@/components/app/Modal.vue';
 import Btn from '@/components/app/Btn.vue';
 import ContactForm from '@/components/contacts/ContactForm.vue';
 import Divider from '@/components/app/Divider.vue';
-import { phone, notEmptyObject } from '@/validation/validators';
+import { phone, notAllEmptyProps } from '@/validation/validators';
 const CONTACT_BASE_STATE = { name: '', phone: '', email: '' };
 
 export default {
@@ -68,23 +68,23 @@ export default {
       return this.contact && Object.keys(this.contact).length ? 'Editar contato' : 'Criar novo contato';
     }
   },
-  validations: {
-    contactData: {
-      notEmptyObject,
-      email: {
-        email
-      },
-      phone: {
-        phone
-      }
-    }
-  },
   watch: {
     contact: {
       handler(val) {
         this.contactData = Object.assign(this.contactData, { ...val });
       },
       deep: true
+    }
+  },
+  validations: {
+    contactData: {
+      notEmptyProps: notAllEmptyProps(['name', 'email', 'phone']),
+      email: {
+        email
+      },
+      phone: {
+        phone
+      }
     }
   }
 };

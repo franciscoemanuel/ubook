@@ -61,12 +61,6 @@ export default {
       activeHightlightTimeout: {}
     };
   },
-  computed: {
-    avatarText() {
-      const [firstNameLetter] = this.name.match(/[a-zA-Z]/g) || [];
-      return firstNameLetter ? firstNameLetter.toUpperCase() : '?';
-    }
-  },
   methods: {
     checkForHighlight() {
       window.clearTimeout(this.activeHightlightTimeout);
@@ -79,6 +73,12 @@ export default {
           this.highlight = false;
         }, milisecondsToHighlight);
       }
+    }
+  },
+  computed: {
+    avatarText() {
+      const [firstNameLetter] = this.name.match(/[a-zA-Z]/g) || [];
+      return firstNameLetter ? firstNameLetter.toUpperCase() : '?';
     }
   },
   watch: {
@@ -109,9 +109,9 @@ export default {
 
 .actions-buttons-container {
   display: flex;
-  justify-content: flex-end;
   gap: 24px;
   width: 100%;
+  justify-content: center;
 }
 
 .highlight {
@@ -127,6 +127,10 @@ export default {
 
   .contact-avatar {
     margin-right: 16px;
+  }
+
+  .actions-buttons-container {
+    justify-content: flex-end;
   }
 }
 </style>
