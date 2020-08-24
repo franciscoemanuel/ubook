@@ -25,7 +25,7 @@ export default {
 }
 
 .base-layout {
-  margin: 1em;
+  margin: 16px;
 }
 
 body {

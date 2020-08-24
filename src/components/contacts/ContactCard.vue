@@ -108,6 +108,7 @@ export default {
   display: flex;
   justify-content: flex-end;
   gap: 24px;
+  width: 100%;
 }
 
 .highlight {
