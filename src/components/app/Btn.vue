@@ -1,5 +1,10 @@
 <template>
-  <div class="button-container" :class="{ rounded, flat, disabled }" :style="{ 'background-color': color, color: textColor }" @click="$emit('click')">
+  <div
+    class="button-container"
+    :class="{ rounded, flat, disabled }"
+    :style="{ 'background-color': color, color: textColor }"
+    @click="!disabled && $emit('click')"
+  >
     <div class="button-slot">
       <i class="material-icons prepend-icon" v-show="prependIcon">{{ prependIcon }}</i>
       <slot name="default"></slot>
