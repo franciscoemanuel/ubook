@@ -1,7 +1,7 @@
 <template>
   <card :class="{ highlight, 'contact-card': true }">
     <template name="avatar">
-      <contact-avatar class="contact-avatar">{{ avatarText }}</contact-avatar>
+      <contact-avatar class="contact-avatar" :color="avatarColor">{{ avatarText }}</contact-avatar>
     </template>
 
     <div class="contact-info-grid">
@@ -46,6 +46,9 @@ export default {
     },
     createdAt: {
       type: Number
+    },
+    avatarColor: {
+      type: String
     },
     highlightDelay: {
       type: Number,

@@ -32,7 +32,7 @@ import Btn from '@/components/app/Btn.vue';
 import ContactFormDialog from '@/components/contacts/ContactFormDialog.vue';
 import ContactsGrid from '@/components/contacts/ContactsGrid.vue';
 import DeleteContactDialog from '@/components/contacts/DeleteContactDialog.vue';
-import { clone, numbersOnly } from '@/utils';
+import { clone, numbersOnly, randomColor } from '@/utils';
 
 export default {
   name: 'ContactsList',
@@ -72,7 +72,7 @@ export default {
         .toString(36)
         .substr(2, 9);
 
-      this.contacts.push({ ...contactData, id, createdAt: new Date().valueOf() });
+      this.contacts.push({ ...contactData, id, createdAt: new Date().valueOf(), avatarColor: randomColor() });
     },
     updateContact(contactToUpdate) {
       const contactToUpdateIndex = this.contacts.findIndex(contact => contact.id === contactToUpdate.id);
