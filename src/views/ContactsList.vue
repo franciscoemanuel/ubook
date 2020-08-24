@@ -9,7 +9,9 @@
       </template>
       <span>{{ emptyContactsText }}</span>
       <template slot="actions">
-        <btn v-show="!contacts.length" prepend-icon="add" @click.native="openContactFormDialog = true">Criar contato</btn>
+        <btn v-show="!contacts.length" prepend-icon="add" @click.native="openContactFormDialog = true" data-cy="initial-add-contacts-btn"
+          >Criar contato</btn
+        >
       </template>
     </empty-content>
     <contacts-grid

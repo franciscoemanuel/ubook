@@ -5,9 +5,9 @@
     </template>
 
     <div class="contact-info-grid">
-      <span>{{ name }}</span>
-      <span>{{ email }}</span>
-      <span>{{ phone }}</span>
+      <span data-cy="contact-card-name">{{ name }}</span>
+      <span data-cy="contact-card-email">{{ email }}</span>
+      <span data-cy="contact-card-phone">{{ phone }}</span>
       <div class="actions-buttons-container">
         <btn flat @click="$emit('edit')">
           <i class="material-icons-outlined action-btn">edit</i>

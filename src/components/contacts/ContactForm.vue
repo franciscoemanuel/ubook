@@ -7,6 +7,7 @@
       @input="$emit('update:name', $event.trim())"
       :validations="validations.name"
       @keyup.native.enter="$emit('saveShortcut')"
+      data-cy="contact-form-name-input"
     ></text-input>
     <text-input
       label="E-mail"
@@ -15,6 +16,7 @@
       @input="$emit('update:email', $event.trim())"
       :validations="validations.email"
       @keyup.native.enter="$emit('saveShortcut')"
+      data-cy="contact-form-email-input"
     ></text-input>
     <text-input
       label="Telefone"
@@ -24,6 +26,7 @@
       @input="$emit('update:phone', $event.trim())"
       :validations="validations.phone"
       @keyup.native.enter="$emit('saveShortcut')"
+      data-cy="contact-form-phone-input"
     ></text-input>
   </div>
 </template>
