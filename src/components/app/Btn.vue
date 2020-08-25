@@ -1,5 +1,5 @@
 <template>
-  <div
+  <button
     class="button-container"
     :class="{ rounded, flat, disabled }"
     :style="{ 'background-color': color, color: textColor }"
@@ -7,9 +7,9 @@
   >
     <div class="button-slot">
       <i class="material-icons prepend-icon" v-show="prependIcon">{{ prependIcon }}</i>
-      <slot name="default"></slot>
+      <span class="button-text"><slot name="default"></slot></span>
     </div>
-  </div>
+  </button>
 </template>
 
 <script>
@@ -46,12 +46,12 @@ export default {
 <style scoped>
 .button-container {
   padding: 0.3em;
-  font-weight: 500;
   width: max-content;
   font-size: 14px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
   border: solid 1px rgba(255, 255, 255, 0.16);
   cursor: pointer;
+  outline: none;
 }
 
 .button-container:hover {
@@ -88,5 +88,10 @@ export default {
   box-shadow: none;
   pointer-events: none;
   opacity: 0.32;
+}
+
+.button-text {
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
 }
 </style>
