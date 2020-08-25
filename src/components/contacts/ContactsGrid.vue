@@ -1,7 +1,7 @@
 <template>
   <div class="contacts-container">
     <card class="no-border contacts-grid-header-container">
-      <template name="avatar"> </template>
+      <template name="avatar"></template>
       <div class="contacts-grid-header">
         <span>Contatos</span>
         <span>E-mail</span>
@@ -9,7 +9,7 @@
         <span></span>
       </div>
     </card>
-    <div class="contact-info-row" v-for="(contact, key) in contacts" :key="key">
+    <div class="contact-info-row" v-for="contact in contacts" :key="contact.id">
       <divider class="grid-divider" />
       <contact-card
         class="no-border contact-info-card"

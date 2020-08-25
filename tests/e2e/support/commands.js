@@ -1,25 +1,14 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This is will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+Cypress.Commands.add('newContact', ({ name, email, phone }, btn = 'initial-add-contacts-btn') => {
+  const HIGHLIGHT_COLOR = 'rgb(255, 243, 242)';
+
+  cy.get(`[data-cy=${btn}]`).should('be.visible');
+  cy.get(`[data-cy=${btn}]`).click();
+  name && cy.get('[data-cy=contact-form-name-input]').type(name);
+  email && cy.get('[data-cy=contact-form-email-input]').type(email);
+  phone && cy.get('[data-cy=contact-form-phone-input]').type(phone);
+
+  cy.get('[data-cy=save-contact-btn]').should('not.have.class', 'disabled');
+  cy.get('[data-cy=save-contact-btn]').click();
+
+  cy.get('[data-cy=contact-card]').should('have.css', 'background-color', HIGHLIGHT_COLOR);
+});

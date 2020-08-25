@@ -12,7 +12,7 @@
       <divider />
       <div class="actions-container">
         <btn flat @click="close()">Cancelar</btn>
-        <btn color="#fa7268" textColor="white" class="delete-btn" @click="confirmDelete()">Excluir</btn>
+        <btn color="#fa7268" textColor="white" class="delete-btn" @click="confirmDelete()" data-cy="confirm-contact-delete-btn">Excluir</btn>
       </div>
     </template>
   </modal>

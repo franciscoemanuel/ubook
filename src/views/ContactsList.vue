@@ -1,13 +1,13 @@
 <template>
   <base-layout>
     <template slot="navbarActions">
-      <btn prepend-icon="add" v-show="contacts.length" @click="openContactFormDialog = true">Criar contato</btn>
+      <btn prepend-icon="add" v-show="contacts.length" @click="openContactFormDialog = true" data-cy="navbar-add-contacts-btn">Criar contato</btn>
     </template>
-    <empty-content class="empty-content" v-show="!filteredAndSortedContacts.length">
+    <empty-content class="empty-content" v-show="!filteredAndSortedContacts.length" data-cy="empty-contact-list-div">
       <template slot="image">
         <img src="@/assets/images/ic-book.svg" />
       </template>
-      <span>{{ emptyContactsText }}</span>
+      <span data-cy="empty-contact-list-text">{{ emptyContactsText }}</span>
       <template slot="actions">
         <btn v-show="!contacts.length" prepend-icon="add" @click.native="openContactFormDialog = true" data-cy="initial-add-contacts-btn"
           >Criar contato</btn
@@ -34,7 +34,7 @@ import Btn from '@/components/app/Btn.vue';
 import ContactFormDialog from '@/components/contacts/ContactFormDialog.vue';
 import ContactsGrid from '@/components/contacts/ContactsGrid.vue';
 import DeleteContactDialog from '@/components/contacts/DeleteContactDialog.vue';
-import { clone, numbersOnly, randomColor } from '@/utils';
+import { clone, randomColor } from '@/utils';
 
 export default {
   name: 'ContactsList',
@@ -102,15 +102,9 @@ export default {
       return contacts.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
     },
     filterContacts(contacts, search) {
-      const matchRegex = ({ pattern, string }) => pattern && new RegExp(pattern, 'gi').test(string);
-      const filters = contact => {
-        return [
-          contact.name && { pattern: search, string: contact.name },
-          contact.email && { pattern: search, string: contact.email },
-          contact.phone && { pattern: numbersOnly(search), string: numbersOnly(contact.phone) }
-        ].filter(match => match);
-      };
-      return contacts.filter(contact => filters(contact).some(matchRegex));
+      const propsToSearch = ['name', 'email', 'phone'];
+      const matchSearch = text => text.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+      return contacts.filter(contact => propsToSearch.some(prop => contact[prop] && matchSearch(contact[prop])));
     }
   },
   computed: {

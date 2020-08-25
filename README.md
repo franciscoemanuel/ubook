@@ -24,6 +24,12 @@ npm run build
 npm run test:unit
 ```
 
+### Run your e2e tests
+
+```
+npm run test:e2e
+```
+
 ### Lints and fixes files
 
 ```

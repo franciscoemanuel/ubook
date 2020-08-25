@@ -11,6 +11,7 @@
       :outlined="false"
       v-model="search"
       class="search-input"
+      data-cy="search-contacts-input"
     ></text-input>
   </div>
 </template>

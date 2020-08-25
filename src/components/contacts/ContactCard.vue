@@ -1,5 +1,5 @@
 <template>
-  <card :class="{ highlight, 'contact-card': true }">
+  <card :class="{ highlight, 'contact-card': true }" data-cy="contact-card">
     <template name="avatar">
       <contact-avatar class="contact-avatar" :color="avatarColor">{{ avatarText }}</contact-avatar>
     </template>
@@ -10,9 +10,9 @@
       <span data-cy="contact-card-phone">{{ phone }}</span>
       <div class="actions-buttons-container">
         <btn flat @click="$emit('edit')">
-          <i class="material-icons-outlined action-btn">edit</i>
+          <i class="material-icons-outlined action-btn" data-cy="contact-card-edit-btn">edit</i>
         </btn>
-        <btn flat @click="$emit('delete')">
+        <btn flat @click="$emit('delete')" data-cy="contact-card-delete-btn">
           <i class="material-icons-outlined action-btn">
             <i class="material-icons action-btn">delete</i>
           </i>

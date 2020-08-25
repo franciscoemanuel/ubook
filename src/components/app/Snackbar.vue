@@ -4,7 +4,7 @@
       <div class="snackbar-content">
         <i class="material-icons" v-show="snackbar.icon"> {{ snackbar.icon }}</i>
         <span class="snackbar-text">{{ snackbar.message }}</span>
-        <btn flat textColor="white" v-show="snackbar.closable" @click="closeSnackbar()">Fechar</btn>
+        <btn flat textColor="white" v-show="snackbar.closable" @click="closeSnackbar()" class="close-btn">Fechar</btn>
       </div>
     </div>
   </div>

@@ -13,7 +13,7 @@
       <divider />
       <div class="actions-container">
         <btn flat @click="close()">Cancelar</btn>
-        <btn color="#fa7268" textColor="white" class="save-btn" @click="save" :disabled="$v.$invalid">Salvar</btn>
+        <btn color="#fa7268" textColor="white" class="save-btn" @click="save" :disabled="$v.$invalid" data-cy="save-contact-btn">Salvar</btn>
       </div>
     </template>
   </modal>
